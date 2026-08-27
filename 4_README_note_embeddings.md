@@ -81,38 +81,8 @@ python gen_note_embeddings_generic.py \
 
 ---
 
-## 3. Choose your GPU — read this before your first run
 
-The script sets a default GPU index at the top of the file:
-
-```python
-os.environ["CUDA_VISIBLE_DEVICES"] = os.environ.get("CUDA_VISIBLE_DEVICES", "3")
-```
-
-`"3"` is specific to the 4-GPU machine this was written on. **On a machine with
-fewer than four GPUs, that index does not exist, CUDA silently becomes
-unavailable, and the script falls back to CPU** — it still produces correct
-output, just far slower, and the only hint is `Using device: cpu` in the log.
-
-Set the variable explicitly for your machine:
-
-```bash
-# single GPU, or "use the first one"
-CUDA_VISIBLE_DEVICES=0 python gen_note_embeddings_generic.py ...
-
-# force CPU
-CUDA_VISIBLE_DEVICES="" python gen_note_embeddings_generic.py ...
-```
-
-Check what you have with `nvidia-smi`. Whatever index you pick becomes
-`cuda:0` inside the process, which is why the log always says `cuda:0`.
-
-If you are adapting this script for your own site, changing that `"3"` to `"0"`
-is a sensible first edit.
-
----
-
-## 4. Prepare your input CSV
+## 3. Prepare your input CSV
 
 **Required** — two text columns, joined as `summary + "\n\n" + paraphrase` to
 form the model input:
@@ -136,7 +106,7 @@ keep those if you plan to use it.
 
 ---
 
-## 5. Run it
+## 4. Run it
 
 ```bash
 
@@ -190,7 +160,7 @@ Loading abhinand/MedEmbed-base-v0.1 ...
 
 ---
 
-## 6. Check the result
+## 5. Check the result
 
 ```python
 import json
